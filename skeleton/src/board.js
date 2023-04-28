@@ -120,6 +120,26 @@ Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip){
  * color being flipped.
  */
 Board.prototype.validMove = function (pos, color) {
+    if (this.isOccupied(pos)){
+        console.log("NOOO")
+        return false;
+    } else {
+        let piecesFlipped = [];
+        let that = this;
+        Board.DIRS.forEach((dir) => {
+            piecesFlipped = piecesFlipped.concat(that._positionsToFlip(pos, color, dir));
+            // debugger
+        });
+        console.log(piecesFlipped)
+        if (piecesFlipped.length !== 0) {
+            console.log("hello")
+            return true;
+        } else {
+            console.log("no")
+
+            return false;
+        }
+    }
 };
 
 /**
@@ -129,6 +149,20 @@ Board.prototype.validMove = function (pos, color) {
  * Throws an error if the position represents an invalid move.
  */
 Board.prototype.placePiece = function (pos, color) {
+    if (this.validMove(pos,color)) {
+        let piecesFlipped = [];
+        let that = this;
+        Board.DIRS.forEach((dir) => {
+            piecesFlipped = piecesFlipped.concat(that._positionsToFlip(pos, color, dir));
+        });
+        this.grid[pos[0]][pos[1]] = new Piece(color);
+
+        piecesFlipped.forEach((piecePos) => {
+            this.getPiece(piecePos).flip();
+        })
+    } else {
+        throw new Error("Invalid move!")
+    }
 };
 
 /**
