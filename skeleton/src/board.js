@@ -123,7 +123,6 @@ Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip){
  */
 Board.prototype.validMove = function (pos, color) {
     if (this.isOccupied(pos)){
-        console.log("NOOO")
         return false;
     } else {
         let piecesFlipped = [];
@@ -132,12 +131,9 @@ Board.prototype.validMove = function (pos, color) {
             piecesFlipped = piecesFlipped.concat(that._positionsToFlip(pos, color, dir));
             // debugger
         });
-        console.log(piecesFlipped)
         if (piecesFlipped.length !== 0) {
-            console.log("hello")
             return true;
         } else {
-            console.log("no")
 
             return false;
         }
@@ -222,7 +218,7 @@ Board.prototype.print = function () {
             if (piece) {
                 array.push(piece.toString())
             }else{
-                array.push(" ")
+                array.push("_")
             }
         }        
         console.log(array.join(" "))
